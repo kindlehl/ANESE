@@ -14,7 +14,11 @@
 #include <algorithm>
 static inline std::string get_file_ext(const char* filename) {
   std::string filename_str (filename);
-  std::string ext = filename_str.substr(filename_str.find_last_of("."));
+  size_t extpos = filename_str.find_last_of("."); // position of the file extension (last period) on the string
+  if (extpos == std::string::npos){ // if no periods found on string (filename has no extension)
+    return std::string(""); // return an empty string
+  }
+  std::string ext = filename_str.substr(extpos);
   std::transform(ext.begin(), ext.end(), ext.begin(), ::tolower);
   return ext;
 }
